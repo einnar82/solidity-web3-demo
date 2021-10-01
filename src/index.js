@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import * as dotenv from "dotenv";
 import productRoute from './routes/product.route'
+import coinRoute from './routes/coin.route'
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(helmet());
 app.use(cors());
 
 app.use('/products', productRoute);
+app.use('/coins', coinRoute);
 app.get('/', (req, res) => {
     res.json({
         message: 'ok'
