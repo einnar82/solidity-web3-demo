@@ -3,7 +3,8 @@ import { coinContract, minterAddress } from "../config";
 const mintCoin = async (req, res, next) => {
     try {
         const contract = await coinContract()
-        await contract.methods.mint(req.body.address, Number(req.body.amount)).send({
+        const amount = req.body.amount * Math.pow(10, 18);
+        await contract.methods.mint(req.body.address, String(amount)).send({
             from: minterAddress
         });
         return res.json({
@@ -21,7 +22,7 @@ const totalSupply = async (req, res, next) => {
         const contract = await coinContract()
         const totalSupply = await contract.methods.totalSupply().call();
         res.json({
-            totalSupply
+            totalSupply: Number(totalSupply / Math.pow(10, 18))
         })
     } catch (error) {
         return res.status(400).json({
@@ -36,7 +37,7 @@ const accountBalance = async (req, res, next) => {
         const contract = await coinContract()
         const balance = await contract.methods.balanceOf(req.params.address).call();
         return res.json({
-            balance: balance
+            balance: Number(balance / Math.pow(10, 18))
         })
     } catch (error) {
         return res.status(httpStatus.BAD_REQUEST).json({

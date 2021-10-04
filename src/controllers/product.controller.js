@@ -1,37 +1,16 @@
 import {
-    File
-} from "nft.storage";
-import {
     minterAddress,
     productContract,
     web3
 } from "../config"
 
-import {
-    storageClient
-} from '../helpers';
-
-const createMetadata = async (req) => {
-    try {
-        const metadata = await storageClient.store({
-            name: req.body.name,
-            description: req.body.description,
-            image: new File(req.file.image,
-                'pinpie.jpg', {
-                    type: 'image/jpg'
-                }
-            ),
-        })
-        return metadata;
-    } catch (error) {
-        throw error;
-    }
-}
-
 const mintProduct = async (req, res) => {
     try {
-        const metadata = await createMetadata(req);
-        const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
+        const metadataURI = {
+            name: req.body.name,
+            description: req.body.description,
+            image: req.body.image
+        }
         const contract = await productContract()
         const block = await web3.eth.getBlock("latest");
         await contract.methods.awardItem(req.body.address, metadataURI)

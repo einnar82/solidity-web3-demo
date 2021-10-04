@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Coin is ERC20 {
-    constructor(uint256 initialSupply) ERC20("Token", "TKN") {
-        _mint(msg.sender, initialSupply * 10 ** decimals());
+    constructor(uint256 initialSupply) ERC20("PHP Token", "PHPT") {
+        _mint(msg.sender, initialSupply);
     }
 
     /**
@@ -18,7 +18,7 @@ contract Coin is ERC20 {
      * - the caller must have the `MINTER_ROLE`.
      */
     function mint(address to, uint256 amount) public virtual {
-        _mint(to, amount * 10 ** decimals());
+        _mint(to, amount);
         // super._mint(to, amount);
     }
 
@@ -33,7 +33,7 @@ contract Coin is ERC20 {
         returns (uint256)
     {
         uint256 currentBalance_ = super.balanceOf(account);
-        return currentBalance_ / (10**decimals());
+        return currentBalance_;
     }
 
     /**
@@ -41,6 +41,6 @@ contract Coin is ERC20 {
      */
     function totalSupply() public view virtual override returns (uint256) {
         uint256 totalSupply_ = super.totalSupply();
-        return totalSupply_ / (10**decimals());
+        return totalSupply_;
     }
 }

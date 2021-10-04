@@ -1,5 +1,7 @@
 const Coin = artifacts.require("Coin");
 
 module.exports = function (deployer) {
-  deployer.deploy(Coin, 10);
+  const initialAmount = 10;
+  const amountInWei = initialAmount * Math.pow(10, 18);
+  deployer.deploy(Coin, String(amountInWei));
 };
