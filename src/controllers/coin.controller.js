@@ -46,8 +46,26 @@ const accountBalance = async (req, res, next) => {
     }
 }
 
+const transferCoin = async (req, res) => {
+    try {
+        const contract = await coinContract()
+        const amount = req.body.amount * Math.pow(10, 18);
+        await contract.methods.transfer(req.body.receiver_address, String(amount)).send({
+            from: req.body.sender_address
+        });
+        return res.json({
+            message: 'balance transferred.'
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
 export {
     mintCoin,
     totalSupply,
-    accountBalance
+    accountBalance,
+    transferCoin
 }
