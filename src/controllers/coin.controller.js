@@ -7,9 +7,9 @@ import {
 const mintCoin = async (req, res, next) => {
     try {
         const contract = await coinContract()
-        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
-        const tokens = web3.utils.toBN(safeAmount)
-        await contract.methods.mint(req.body.address, tokens).send({
+        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether');
+        const amount = web3.utils.toBN(safeAmount)
+        await contract.methods.mint(req.body.address, amount).send({
             from: minterAddress
         });
         return res.json({
@@ -56,8 +56,9 @@ const accountBalance = async (req, res, next) => {
 const transferCoin = async (req, res) => {
     try {
         const contract = await coinContract()
-        const amount = req.body.amount * Math.pow(10, 18);
-        await contract.methods.transfer(req.body.receiver_address, String(amount)).send({
+        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
+        const amount = web3.utils.toBN(safeAmount)
+        await contract.methods.transfer(req.body.receiver_address, amount).send({
             from: req.body.sender_address
         });
         return res.json({
