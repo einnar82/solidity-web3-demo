@@ -25,9 +25,10 @@ const mintCoin = async (req, res, next) => {
 const totalSupply = async (req, res, next) => {
     try {
         const contract = await coinContract()
-        const totalSupply = await contract.methods.totalSupply().call();
+        const totalSupplyRaw = await contract.methods.totalSupply().call();
+        const totalSupply = web3.utils.fromWei(totalSupplyRaw, 'ether');
         res.json({
-            totalSupply: Number(totalSupply / Math.pow(10, 18))
+            totalSupply: Number(totalSupply)
         })
     } catch (error) {
         return res.status(400).json({
