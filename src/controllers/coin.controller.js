@@ -74,7 +74,7 @@ const transferCoin = async (req, res) => {
 const approveAmount = async (req, res) => {
     try {
         const contract = await coinContract()
-        const approved = await contract.methods.approve(req.body.spender, req.body.amount).encodeABI();
+        const approved = await contract.methods.approve(req.body.spender, req.body.amount).call();
 
         return res.json({
             message: approved
