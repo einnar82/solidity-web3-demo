@@ -41,9 +41,10 @@ const totalSupply = async (req, res, next) => {
 const accountBalance = async (req, res, next) => {
     try {
         const contract = await coinContract()
-        const balance = await contract.methods.balanceOf(req.params.address).call();
+        const balanceRaw = await contract.methods.balanceOf(req.params.address).call();
+        const balance = web3.utils.fromWei(balanceRaw, 'ether');
         return res.json({
-            balance: Number(balance / Math.pow(10, 18))
+            balance: Number(balance)
         })
     } catch (error) {
         return res.status(400).json({
