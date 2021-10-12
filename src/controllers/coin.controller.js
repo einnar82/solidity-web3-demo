@@ -1,13 +1,15 @@
 import {
     coinContract,
-    minterAddress
+    minterAddress,
+    web3
 } from "../config";
 
 const mintCoin = async (req, res, next) => {
     try {
         const contract = await coinContract()
-        const amount = req.body.amount * Math.pow(10, 18);
-        await contract.methods.mint(req.body.address, String(amount)).send({
+        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
+        const tokens = web3.utils.toBN(safeAmount)
+        await contract.methods.mint(req.body.address, tokens).send({
             from: minterAddress
         });
         return res.json({

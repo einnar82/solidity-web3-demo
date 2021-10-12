@@ -21,7 +21,7 @@ const coinContractAddress = async () => {
 }
 const coinContract = async () => new web3.eth.Contract(Coin.abi, await coinContractAddress())
 
-const minterAddress = process.env.MINTER_ADDRESS || '0x9c5A1CA75B0546Da901a24A7A549260c4D36F0BE';
+const minterAddress = process.env.MINTER_ADDRESS || '0x687484d9c00f0D0C0C65e2893B8019284822F21D';
 const nftStorageKey = process.env.NFT_STORAGE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEE0MEY2NDIxMjY1NjVFNWYwZjc0MDNiOTdENjgzZTFkMUMzM0NhMTEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzMjkwNTAyNDUxNSwibmFtZSI6Im5mdC10ZXN0In0.uU2uQfXl8xG6wRf6BTXQo-tBOCCSSGlIi0PikWc64yY';
 
 export {
