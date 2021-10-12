@@ -1,4 +1,7 @@
-import { coinContract, minterAddress } from "../config";
+import {
+    coinContract,
+    minterAddress
+} from "../config";
 
 const mintCoin = async (req, res, next) => {
     try {
@@ -40,7 +43,7 @@ const accountBalance = async (req, res, next) => {
             balance: Number(balance / Math.pow(10, 18))
         })
     } catch (error) {
-        return res.status(httpStatus.BAD_REQUEST).json({
+        return res.status(400).json({
             message: error.message
         })
     }
@@ -63,9 +66,40 @@ const transferCoin = async (req, res) => {
     }
 }
 
+const approveAmount = async (req, res) => {
+    try {
+        const contract = await coinContract()
+        const approved = await contract.methods.approve(req.body.address, req.body.amount).encodeABI();
+
+        return res.json({
+            message: approved
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+const allowance = async (req, res, next) => {
+    try {
+        const contract = await coinContract()
+        const allowance = await contract.methods.allowance(req.body.owner, req.body.spender).call();
+        return res.json({
+            balance: Number(allowance)
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
 export {
     mintCoin,
     totalSupply,
     accountBalance,
-    transferCoin
+    transferCoin,
+    approveAmount,
+    allowance
 }
