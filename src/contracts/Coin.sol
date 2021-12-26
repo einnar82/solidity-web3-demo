@@ -18,8 +18,7 @@ contract Coin is ERC20 {
      * - the caller must have the `MINTER_ROLE`.
      */
     function mint(address to, uint256 amount) public virtual {
-        _mint(to, amount);
-        // super._mint(to, amount);
+        super._mint(to, amount);
     }
 
     /**
