@@ -58,7 +58,10 @@ const transferCoin = async (req, res) => {
         const contract = await coinContract()
         const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
         const amount = web3.utils.toBN(safeAmount)
-        await contract.methods.transfer(req.body.receiver_address, amount).send({
+        // await contract.methods.transfer(req.body.receiver_address, amount).send({
+        //     from: req.body.sender_address
+        // });
+        await contract.methods.transferFrom(req.body.sender_address, req.body.receiver_address, amount).send({
             from: req.body.sender_address
         });
         return res.json({
@@ -74,6 +77,7 @@ const transferCoin = async (req, res) => {
 const approveAmount = async (req, res) => {
     try {
         const contract = await coinContract()
+        // const approved = await contract.methods.approve(req.body.spender, req.body.amount).call();
         const approved = await contract.methods.approve(req.body.spender, req.body.amount).call();
 
         return res.json({
