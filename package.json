@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node -- ./src/index.js",
     "build": "rimraf -R ./dist && webpack --mode production",
+    "dev": "nodemon --exec babel-node -- ./src/index.js",
     "test": "truffle test",
     "start": "babel-node ./dist/index.js"
   },
@@ -20,7 +20,7 @@
     "helmet": "^4.6.0",
     "multer": "^1.4.3",
     "nft.storage": "^3.2.2",
-    "web3": "^1.5.2"
+    "web3": "^1.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",

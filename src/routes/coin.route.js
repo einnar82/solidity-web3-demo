@@ -6,6 +6,7 @@ import {
     mintCoin,
     totalSupply,
     transferCoin,
+    transferFrom,
 } from '../controllers/coin.controller'
 
 
@@ -13,6 +14,7 @@ const router = express.Router()
 
 router.post('/mint', mintCoin)
 router.post('/transfer', transferCoin)
+router.post('/transfer/:sender/inbehalf', transferFrom)
 router.post('/approve', approveAmount)
 router.post('/allowance', allowance)
 router.get('/supply', totalSupply)

@@ -1,12 +1,12 @@
 import {
-    coinContract,
+    getCoinContract,
     minterAddress,
     web3
 } from "../config";
 
 const mintCoin = async (req, res, next) => {
     try {
-        const contract = await coinContract()
+        const contract = await getCoinContract();
         const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether');
         const amount = web3.utils.toBN(safeAmount)
         await contract.methods.mint(req.body.address, amount).send({
@@ -24,7 +24,7 @@ const mintCoin = async (req, res, next) => {
 
 const totalSupply = async (req, res, next) => {
     try {
-        const contract = await coinContract()
+        const contract = await getCoinContract();
         const totalSupplyRaw = await contract.methods.totalSupply().call();
         const totalSupply = web3.utils.fromWei(totalSupplyRaw, 'ether');
         res.json({
@@ -40,7 +40,7 @@ const totalSupply = async (req, res, next) => {
 
 const accountBalance = async (req, res, next) => {
     try {
-        const contract = await coinContract()
+        const contract = await getCoinContract();
         const balanceRaw = await contract.methods.balanceOf(req.params.address).call();
         const balance = web3.utils.fromWei(balanceRaw, 'ether');
         return res.json({
@@ -55,11 +55,11 @@ const accountBalance = async (req, res, next) => {
 
 const transferCoin = async (req, res) => {
     try {
-        const contract = await coinContract()
+        const contract = await getCoinContract();
         const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
         const amount = web3.utils.toBN(safeAmount)
-        await contract.methods.transfer(req.body.receiver_address, amount).send({
-            from: req.body.sender_address
+        await contract.methods.transfer(req.body.receiver, amount).send({
+            from: minterAddress
         });
         return res.json({
             message: 'balance transferred.'
@@ -73,8 +73,12 @@ const transferCoin = async (req, res) => {
 
 const approveAmount = async (req, res) => {
     try {
-        const contract = await coinContract()
-        const approved = await contract.methods.approve(req.body.spender, req.body.amount).call();
+        const contract = await getCoinContract();
+        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
+        const amount = web3.utils.toBN(safeAmount)
+        const approved = await contract.methods.approve(req.body.spender, amount).send({
+            from: req.body.owner
+        });
 
         return res.json({
             message: approved
@@ -88,10 +92,32 @@ const approveAmount = async (req, res) => {
 
 const allowance = async (req, res, next) => {
     try {
-        const contract = await coinContract()
+        const contract = await getCoinContract();
         const allowance = await contract.methods.allowance(req.body.owner, req.body.spender).call();
+        const safeAmount = web3.utils.fromWei(allowance, 'ether')
         return res.json({
-            balance: Number(allowance)
+            balance: Number(safeAmount)
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+const transferFrom = async (req, res) => {
+    try {
+        const contract = await getCoinContract();
+        const amount = web3.utils.toWei(req.body.amount.toString(), 'ether')
+        await contract.methods.transferFrom(
+            req.params.sender, 
+            req.body.receiver,
+            amount
+        ).call({
+            from: req.params.sender
+        });
+        return res.json({
+            message: "transfer has been sent"
         })
     } catch (error) {
         return res.status(400).json({
@@ -105,6 +131,7 @@ export {
     totalSupply,
     accountBalance,
     transferCoin,
+    transferFrom,
     approveAmount,
     allowance
 }
