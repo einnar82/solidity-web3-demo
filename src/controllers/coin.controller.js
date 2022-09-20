@@ -108,13 +108,14 @@ const allowance = async (req, res, next) => {
 const transferFrom = async (req, res) => {
     try {
         const contract = await getCoinContract();
-        const amount = web3.utils.toWei(req.body.amount.toString(), 'ether')
+        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
+        const amount = web3.utils.toBN(safeAmount)
         await contract.methods.transferFrom(
-            req.params.sender, 
-            req.body.receiver,
+            req.body.sender, 
+            req.params.receiver,
             amount
         ).call({
-            from: req.params.sender
+            from: req.body.sender
         });
         return res.json({
             message: "transfer has been sent"
