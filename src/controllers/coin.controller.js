@@ -75,8 +75,7 @@ const approveAmount = async (req, res) => {
     try {
         const contract = await getCoinContract();
         const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
-        const amount = web3.utils.toBN(safeAmount)
-        const approved = await contract.methods.approve(req.body.spender, amount).send({
+        const approved = await contract.methods.approve(req.body.spender, safeAmount).send({
             from: req.body.owner
         });
 
@@ -94,9 +93,9 @@ const allowance = async (req, res, next) => {
     try {
         const contract = await getCoinContract();
         const allowance = await contract.methods.allowance(req.body.owner, req.body.spender).call();
-        const safeAmount = web3.utils.fromWei(allowance, 'ether')
+        const amount = web3.utils.fromWei(allowance, 'ether')
         return res.json({
-            balance: Number(safeAmount)
+            balance: Number(amount)
         })
     } catch (error) {
         return res.status(400).json({
@@ -108,13 +107,12 @@ const allowance = async (req, res, next) => {
 const transferFrom = async (req, res) => {
     try {
         const contract = await getCoinContract();
-        const safeAmount = web3.utils.toWei(req.body.amount.toString(), 'ether')
-        const amount = web3.utils.toBN(safeAmount)
+        const amount = web3.utils.toWei(req.body.amount.toString(), 'ether')
         await contract.methods.transferFrom(
             req.body.sender, 
             req.params.receiver,
             amount
-        ).call({
+        ).send({
             from: req.body.sender
         });
         return res.json({
