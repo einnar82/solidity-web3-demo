@@ -1,7 +1,7 @@
 const  { web3 } = require('../src/config');
+const { TOTAL_SUPPLY } = require('../src/config/coin')
 const Coin = artifacts.require("Coin");
 
-const TOTAL_SUPPLY = '100000000';
 
 module.exports = function (deployer) {
   const safeAmount = web3.utils.toWei(TOTAL_SUPPLY, 'ether')

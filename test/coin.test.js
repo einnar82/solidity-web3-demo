@@ -1,4 +1,5 @@
 const { web3 } = require('../src/config')
+const { TOTAL_SUPPLY } = require('../src/config/coin')
 const Coin = artifacts.require("Coin");
 
 contract('Coin', (accounts) => {
@@ -29,7 +30,7 @@ contract('Coin', (accounts) => {
     it('has a total supply', async () => {
         const supply = await contract.totalSupply();
         const totalSupply = web3.utils.fromWei(supply, 'ether');
-        assert.equal(totalSupply, 10);
+        assert.equal(totalSupply, TOTAL_SUPPLY);
     })
 
 });
