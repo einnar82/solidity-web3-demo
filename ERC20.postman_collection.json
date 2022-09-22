@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "866699e3-336f-4f69-ad05-e1a806e2b950",
+		"_postman_id": "12a477f7-6950-4038-b069-ff3f6843a373",
 		"name": "ERC20",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:4002/coins/balance/0xDC76745dFf6434abb5bFE4f78937eD37FD77580a",
+					"raw": "localhost:4002/coins/balance/0xDB4CFbb37fDF2EFCc101fb9D34866485983e7957",
 					"host": [
 						"localhost"
 					],
@@ -38,7 +38,7 @@
 					"path": [
 						"coins",
 						"balance",
-						"0xDC76745dFf6434abb5bFE4f78937eD37FD77580a"
+						"0xDB4CFbb37fDF2EFCc101fb9D34866485983e7957"
 					]
 				}
 			},
@@ -51,7 +51,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"amount\": 10000,\r\n    \"receiver\": \"0xDC76745dFf6434abb5bFE4f78937eD37FD77580a\"\r\n}",
+					"raw": "{\r\n    \"amount\": 10000,\r\n    \"receiver\": \"0x9f18A3f366DE7FF7bEc4C5F80454D4C72F714c4a\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,7 +79,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"amount\": 20000,\r\n    \"spender\": \"0xDC76745dFf6434abb5bFE4f78937eD37FD77580a\",\r\n    \"owner\": \"0x8209522aF814Bbb5f1b803eE53DF3DC600425330\"\r\n}",
+					"raw": "{\r\n    \"amount\": 1000,\r\n    \"spender\": \"0x9f18A3f366DE7FF7bEc4C5F80454D4C72F714c4a\",\r\n    \"owner\": \"0xDB4CFbb37fDF2EFCc101fb9D34866485983e7957\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -107,7 +107,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"spender\": \"0xDC76745dFf6434abb5bFE4f78937eD37FD77580a\",\r\n    \"owner\": \"0x8209522aF814Bbb5f1b803eE53DF3DC600425330\"\r\n}",
+					"raw": "{\r\n    \"spender\": \"0x9f18A3f366DE7FF7bEc4C5F80454D4C72F714c4a\",\r\n    \"owner\": \"0xDB4CFbb37fDF2EFCc101fb9D34866485983e7957\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -135,7 +135,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"sender\": \"0xDC76745dFf6434abb5bFE4f78937eD37FD77580a\",\r\n    \"amount\": 1\r\n}",
+					"raw": "{\r\n    \"owner\": \"0xDB4CFbb37fDF2EFCc101fb9D34866485983e7957\",\r\n    \"amount\": 100\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -143,7 +143,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:4002/coins/transfer/0x8209522aF814Bbb5f1b803eE53DF3DC600425330/inbehalf",
+					"raw": "localhost:4002/coins/transfer/0x9f18A3f366DE7FF7bEc4C5F80454D4C72F714c4a/inbehalf",
 					"host": [
 						"localhost"
 					],
@@ -151,7 +151,7 @@
 					"path": [
 						"coins",
 						"transfer",
-						"0x8209522aF814Bbb5f1b803eE53DF3DC600425330",
+						"0x9f18A3f366DE7FF7bEc4C5F80454D4C72F714c4a",
 						"inbehalf"
 					]
 				}
