@@ -1,8 +1,8 @@
-import {
+const {
     getCoinContract,
     minterAddress,
     web3
-} from "../config";
+} = require("../config");
 
 const mintCoin = async (req, res, next) => {
     try {
@@ -125,7 +125,7 @@ const transferFrom = async (req, res) => {
     }
 }
 
-export {
+module.exports = {
     mintCoin,
     totalSupply,
     accountBalance,

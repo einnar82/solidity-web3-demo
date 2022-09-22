@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf -R ./dist && webpack --mode production",
-    "dev": "nodemon --exec babel-node -- ./src/index.js",
+    "dev": "nodemon --exec babel-node -- ./src/server.js",
     "test": "truffle test",
-    "start": "babel-node ./dist/index.js"
+    "start": "node ./src/server.js"
   },
   "keywords": [],
   "author": "",

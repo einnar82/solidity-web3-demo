@@ -1,14 +1,9 @@
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-import * as dotenv from "dotenv";
-import * as http from "http";
-import coinRoute from "./routes/coin.route";
-
-dotenv.config();
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const coinRoute = require("./routes/coin.route");
 
 const app = express();
-const PORT = process.env.PORT || 4002;
 
 app.use(express.json());
 app.use(
@@ -38,9 +33,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-const server = http.createServer(app);
-
-server.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
-
+module.exports = app;

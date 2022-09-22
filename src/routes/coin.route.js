@@ -1,5 +1,5 @@
-import express from 'express'
-import {
+const express = require("express");
+const {
     accountBalance,
     allowance,
     approveAmount,
@@ -7,7 +7,7 @@ import {
     totalSupply,
     transferCoin,
     transferFrom,
-} from '../controllers/coin.controller'
+} = require('../controllers/coin.controller');
 
 
 const router = express.Router()
@@ -21,4 +21,4 @@ router.get('/supply', totalSupply)
 router.get('/balance/:address', accountBalance)
 
 
-export default router;
+module.exports = router;
