@@ -109,11 +109,11 @@ const transferFrom = async (req, res) => {
         const contract = await getCoinContract();
         const amount = web3.utils.toWei(req.body.amount.toString(), 'ether')
         await contract.methods.transferFrom(
-            req.body.sender, 
-            req.params.receiver,
+            req.body.owner, 
+            req.params.spender,
             amount
         ).send({
-            from: req.body.sender
+            from: req.params.spender
         });
         return res.json({
             message: "transfer has been sent"
