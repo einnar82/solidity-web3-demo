@@ -14,7 +14,7 @@ const router = express.Router()
 
 router.post('/mint', mintCoin)
 router.post('/transfer', transferCoin)
-router.post('/transfer/:receiver/inbehalf', transferFrom)
+router.post('/transfer/:spender/inbehalf', transferFrom)
 router.post('/approve', approveAmount)
 router.post('/allowance', allowance)
 router.get('/supply', totalSupply)
